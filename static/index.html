@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Образовательная школа</title>
+    <script src="https://telegram.org/js/telegram-web-app.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+            background-color: #f9f9f9;
+            text-align: center;
+        }
+        .hidden {
+            display: none;
+        }
+        .menu button {
+            padding: 10px 15px;
+            font-size: 16px;
+            cursor: pointer;
+            border: none;
+            background-color: #007bff;
+            color: white;
+            border-radius: 5px;
+            margin: 5px;
+        }
+        .menu button:hover {
+            background-color: #0056b3;
+        }
+        .section {
+            display: none;
+            border: 1px solid #ddd;
+            background: white;
+            padding: 15px;
+            border-radius: 10px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+        .active {
+            display: block;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Добро пожаловать!</h1>
+    
+    <div id="admin-panel" class="section hidden">
+        <h2>Панель преподавателя</h2>
+        <button onclick="alert('Добавить группу')">Добавить группу</button>
+        <button onclick="alert('Контроль оплат')">Контроль оплат</button>
+        <button onclick="alert('Добавить занятие')">Добавить занятие</button>
+    </div>
+
+    <div id="student-panel" class="section hidden">
+        <h2>Оплата обучения</h2>
+        <p>Ваш платеж за месяц: 5000 руб.</p>
+        <button onclick="pay()">Оплатить</button>
+        <input type="file" id="payment-proof">
+        <button onclick="sendPaymentProof()">Отправить квитанцию</button>
+    </div>
+
+    <script>
+        // ID преподавателя (замени на реальный)
+        const ADMIN_ID = 234104161; 
+        
+        function checkUser() {
+            const tg = window.Telegram.WebApp;
+            const user = tg.initDataUnsafe.user;
+            
+            if (user) {
+                const userId = user.id;
+                console.log("User ID:", userId);
+                
+                if (userId === ADMIN_ID) {
+                    document.getElementById('admin-panel').classList.remove('hidden');
+                } else {
+                    document.getElementById('student-panel').classList.remove('hidden');
+                }
+            } else {
+                alert("Ошибка авторизации в Telegram!");
+            }
+        }
+
+        function pay() {
+            alert("Перенаправляем на оплату...");
+        }
+
+        function sendPaymentProof() {
+            alert("Скриншот отправлен администратору!");
+        }
+
+        checkUser();
+    </script>
+
+</body>
+</html>
+
